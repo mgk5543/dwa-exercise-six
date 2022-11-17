@@ -8,7 +8,6 @@ import './App.css';
 import CreateUserPage from './pages/CreateUser';
 import LoginPage from './pages/Login';
 import UserProfilePage from './pages/UserProfile';
-import Header from './components/Header';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -20,26 +19,47 @@ const firebaseConfig = {
   appId: "1:633596556954:web:feb93eee6ea3d1cca39123"
 };
   
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <UserProfilePage />,
-  },
-  {
-      path: "/login",
-      element: <LoginPage />,
-  },
-  {
-      path: "/create",
-      element: <CreateUserPage />,
-  },
-]);
-  
 function App() {
   const [appInitialized, setAppInitialized] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userInformation, setUserInformation] = useState({});
+
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: (
+        <UserProfilePage 
+          isLoading={isLoading} 
+          isLoggedIn={isLoggedIn} 
+          userInformation={userInformation}
+          setIsLoggedIn={setIsLoggedIn} 
+          setUserInformation={setUserInformation}
+         />
+      ),
+    },
+    {
+        path: "/login",
+        element: (
+          <LoginPage 
+            isLoading={isLoading} 
+            isLoggedIn={isLoggedIn}
+            setIsLoggedIn={setIsLoggedIn} 
+            setUserInformation={setUserInformation}
+          />
+        ),//prop iisLogged in tels us if false, go to login or create, if true, go to user profile
+    },
+    {
+        path: "/create",
+        element: (
+          <CreateUserPage 
+            isLoading={isLoading}
+            isLoggedIn={isLoggedIn}
+            setIsLoggedIn={setIsLoggedIn} 
+            setUserInformation={setUserInformation} />
+        ),
+    },
+  ]);
   //ensure app is initialized when it is ready to be
   useEffect(() => { //only do after first render
     //initialize firebase
@@ -72,7 +92,6 @@ function App() {
 
   return (
     <div className="App">
-      <Header/>
       <RouterProvider router={router} />
     </div>
   );
