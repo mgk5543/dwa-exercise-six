@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { initializeApp } from "firebase/app";
-import { getAuth, getAuthStateChanged, onAuthStateChanged } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 //Styles and components
 import './App.css';
