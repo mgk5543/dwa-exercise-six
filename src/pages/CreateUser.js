@@ -9,7 +9,7 @@ function CreateUserPage({ isLoading, isLoggedIn, setIsLoggedIn, setUserInformati
 
     useEffect(() => {
         if(isLoggedIn && !isLoading) return navigate('/'); //Home
-    }, [isLoggedIn, isLoading])
+    }, [isLoggedIn, isLoading, navigate])
 
     const [errors, setErrors] = useState();
 
@@ -20,7 +20,7 @@ function CreateUserPage({ isLoading, isLoggedIn, setIsLoggedIn, setUserInformati
             const email = e.currentTarget.email.value;
             const password = e.currentTarget.password.value;
 
-            console.log({email, password});
+            //console.log({email, password});
             const auth = getAuth();
 
             createUserWithEmailAndPassword(auth, email, password)
@@ -44,11 +44,11 @@ function CreateUserPage({ isLoading, isLoggedIn, setIsLoggedIn, setUserInformati
         },
         [setErrors, setIsLoggedIn, setUserInformation]
     );
-
+    
 
     return (
         <>
-        <Header setIsLoggedIn={setIsLoggedIn} setUserInformation={setUserInformation}/>
+        <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} setUserInformation={setUserInformation}/>
             <div className="PageWrapper">
                 <h1>Create User</h1>
                 <CreateUserForm signUpUser={signUpUser}/>

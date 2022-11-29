@@ -1,7 +1,7 @@
 import React from 'react';
 import { getAuth, signOut } from 'firebase/auth'
 
-function Header( setIsLoggedIn, setUserInformation) {
+function Header( {isLoggedIn, setIsLoggedIn, setUserInformation}) {
     function logout() {
         const auth = getAuth();
         signOut(auth)
@@ -17,10 +17,10 @@ function Header( setIsLoggedIn, setUserInformation) {
     return (
         <header>
             <nav>
-                <a href="/"><p>Home</p></a>
-                <a href="/login"><p>Login</p></a>
-                <a href="/create"><p>Create User</p></a>
-                <p onClick={() => logout()}>Log Out</p>
+                {isLoggedIn && (<a href="/"><p>Home</p></a>)}
+                {!isLoggedIn && (<a href="/login"><p>Login</p></a>)}
+                {!isLoggedIn && (<a href="/create"><p>Create User</p></a>)}
+                {isLoggedIn && (<p onClick={() => logout()}>Log Out</p>)}
             </nav>
         </header>
     );
